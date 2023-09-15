@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ['*']
 # settings.py
 AUTH_USER_MODEL = 'custom_auth.CustomUser' #Because you overrid in models
 
+SESSION_COOKIE_AGE = 300 # Set time that is allowed for a user to stay inactive after logging in
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -46,6 +47,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'custom_auth.middleware.SessionTimeoutMiddleware', # Add custom middleware you created in your app for the session time outs
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',

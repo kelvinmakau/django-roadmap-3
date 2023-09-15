@@ -7,7 +7,7 @@ class CustomUser(AbstractUser):
     phone_number = models.CharField(max_length=15)
     designation = models.CharField(max_length=100)
 
-    # Override built in group to avoid clash with custom gtoup
+    # Override built in group to avoid clash with custom group and add a related name
     custom_groups = models.ManyToManyField(
         Group,
         related_name='custom_users',
@@ -15,8 +15,8 @@ class CustomUser(AbstractUser):
     )
 
     # Add a related_name to the user_permissions field
-    user_permissions = models.ManyToManyField(
-        to='auth.Permission',
-        related_name='custom_users',
-        blank=True,
-    )
+    # user_permissions = models.ManyToManyField(
+    #     to='auth.Permission',
+    #     related_name='custom_users',
+    #     blank=True,
+    # )
