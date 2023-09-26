@@ -17,13 +17,24 @@
     <label for="phone_number">Phone Number:</label>
     <input type="text" name="phone_number" required><br>
     <label for="designation">Designation:</label>
-    <input type="text" name="designation" required><br>
+    <select class="form-control" name="designation" placeholder="Designation" id="designation" required>
+        <option value="Supervisor">Supervisor</option>
+        <option value="Admin">Admin</option>
+        <option value="Employee">Employee</option>
+    </select>
     <label for="first_name">First Name:</label>
     <input type="text" name="first_name" required><br>
     <label for="last_name">Last Name:</label>
     <input type="text" name="last_name" required><br>
+    <label for="email">Email:</label>
+    <input type="email" name="email" id="email" required>
     <label for="password">Password:</label>
     <input type="password" name="password" required><br>
+        <ul>
+            <li>Password must be 8 characters long</li>
+            <li>Password must have at least one uppercase and lowercase letters</li>
+            <li>Password must have at least a special character</li>
+        </ul>
     <label for="password2">Confirm Password:</label>
     <input type="password" name="password2" required><br>
     <button type="submit">Register</button>

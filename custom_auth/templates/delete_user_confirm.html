@@ -1,0 +1,14 @@
+<!-- custom_auth/templates/delete_user_confirm.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Delete User</h1>
+  <p>Are you sure you want to delete the user '{{ user.username }}'? This action cannot be undone.</p>
+  
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">Delete</button>
+  </form>
+  
+  <a href="{% url 'view_users' %}">Cancel</a>
+{% endblock content %}

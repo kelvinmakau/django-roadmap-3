@@ -13,10 +13,3 @@ class CustomUser(AbstractUser):
         related_name='custom_users',
         blank=True,
     )
-
-    # Add a related_name to the user_permissions field
-    # user_permissions = models.ManyToManyField(
-    #     to='auth.Permission',
-    #     related_name='custom_users',
-    #     blank=True,
-    # )

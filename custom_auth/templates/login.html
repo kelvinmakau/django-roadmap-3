@@ -14,9 +14,9 @@
 <form method="post" action="{% url 'login' %}">
     {% csrf_token %}
     <label for="username">Username:</label>
-    <input type="text" name="username" required><br>
+    <input type="text" name="username" required autocomplete="username"><br>
     <label for="password">Password:</label>
-    <input type="password" name="password" required><br>
+    <input type="password" name="password" required autocomplete="current-password"><br>
     <button type="submit">Login</button>
 </form>
 

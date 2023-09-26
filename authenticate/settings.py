@@ -33,7 +33,7 @@ ALLOWED_HOSTS = ['*']
 # settings.py
 AUTH_USER_MODEL = 'custom_auth.CustomUser' #Because you overrid in models
 
-SESSION_COOKIE_AGE = 300 # Set time that is allowed for a user to stay inactive after logging in
+SESSION_COOKIE_AGE = 5000 # Set time that is allowed for a user to stay inactive after logging in
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'custom_auth',
+    'chat',
 ]
 
 MIDDLEWARE = [
@@ -112,7 +113,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Etc/GMT-3'
 
 USE_I18N = True
 

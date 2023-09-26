@@ -10,10 +10,28 @@
     </ul>
 {% endif %}
 
+<h4 style="text-align: center;">Contact admin if you need any changes that you are not authorized to do</h4>
 
-<h1>Welcome, {{ user.username }}</h1>
-<p>Phone Number: {{ user.phone_number }}</p>
-<p>Designation: {{ user.designation }}</p>
-<a href="{% url 'logout' %}">Logout</a>
+<form action="{% url 'update_profile' %}" method="post">
+    {% csrf_token %}
+    <label for="username">Username</label>
+    <input type="text" name="username" id="username" value="{{ user.username }}" readonly>
+    <label for="phone_number">Phone Number</label>
+    <input type="text" name="phone_number" id="phone_number" value="{{ user.phone_number }}">
+    <label for="first_name">First Name</label>
+    <div>
+        <input type="text" name="first_name" id="first_name" value="{{user.first_name}}">
+        <label for="last_name">Last Name</label>
+    </div>
+    <div>
+        <input type="text" name="last_name" id="last_name" value="{{user.last_name}}">
+        <label for="email">Email</label>
+    </div>
+    <input type="email" name="email" id="email" value="{{ user.email }}" readonly>
+    <label for="designation">Designation(Can be updated by admin only)</label>
+    <input type="text" name="designation" id="designation" value="{{ user.designation }}" readonly>
+    <button href="{%url 'update_profile' %}" type="submit">Update</button>
+</form>
+
 
 {%endblock content %}

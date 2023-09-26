@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+	<div class="m-2">
+		<h1 class="text-success">
+			View Users
+		</h1>
+		<strong>You can view and update user details here</strong>
+		<p class="text-center">Notify user when you change any of their details</p>
+		<div class="table-responsive">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Username</th>
+						<th>First Name</th>
+						<th>Last Name</th>
+						<th>Phone Number</th>
+						<th>Email</th>
+                        <th>Designation</th>
+                        <th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+                {% for user in users%}
+					<tr>
+						<td>{{ user.username }}</td>
+						<td>{{ user.first_name }} </td>
+						<td>{{ user.last_name }}</td>
+						<td>{{ user.phone_number }}</td>
+						<td>{{ user.email }}</td>
+                        <td>{{ user.designation }}</td>
+                        <td><a class="btn btn-warning edit_button" href="{% url 'edit_user' user_id=user.id %}">Edit</a> <a class="btn btn-danger" href="{% url 'delete_user' user_id=user.id %}">Delete</a></td>
+					</tr>
+                    {%endfor%}
+				</tbody>
+			</table>
+		</div>
+
+		
+	</div>
+    {% endblock %}

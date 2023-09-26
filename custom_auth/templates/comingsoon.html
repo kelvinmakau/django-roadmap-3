@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <h1 style="text-align: center;">Welcome, {{ user.first_name }} {{user.last_name}}</h1>
+        <div class="bgimg">
+            <div class="topleft">
+              <p>Logo</p>
+            </div>
+            <div class="middle">
+              <h1>COMING SOON</h1>
+              <hr>
+              <p>35 days</p>
+            </div>
+            <div class="bottomleft">
+              <p>Some text</p>
+            </div>
+          </div>
+
+{% endblock content %}

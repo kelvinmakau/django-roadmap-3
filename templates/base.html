@@ -21,11 +21,11 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>                        
             </button>
-            <a class="navbar-brand" href="{% url 'profile' %}">My Playground</a>
+            <a class="navbar-brand" href="{% url 'soon' %}">My Playground</a>
           </div>
           <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-              <li class="active"><a href="#">Home</a></li>
+              <li class="active"><a href="{% url 'soon' %}">Home</a></li>
               <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">Blog <span class="caret"></span></a>
                 <ul class="dropdown-menu">
@@ -39,7 +39,14 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
               {% if request.user.is_authenticated %} <!--Display logot button if you login and show both buttons if you are not logged in-->
-                      <li><a href="{% url 'profile' %}"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">{% if user %}{{user.username}} {% else %} Profile {% endif %} <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="{% url 'profile' %}">View Profile</a></li>
+                  <li><a href="{% url 'view_users' %}">View Users</a></li>
+                  <li><a href="#">Settings</a></li>
+                </ul>
+              </li>
                       <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
                   {% else %}
                       <li><a href="{% url 'register' %}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
@@ -49,6 +56,9 @@
           </div>
         </div>
       </nav>
+      <!-- {% if request.user.is_authenticated %}
+        <div style="text-align: center;"> <p>You are logged in as <span style="color: rgb(34, 68, 68);">{{user.first_name}} {{user.last_name}}</span></p></div>
+      {% endif %} -->
     {% block content %}
     {% endblock %}
     
