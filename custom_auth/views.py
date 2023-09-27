@@ -1,17 +1,27 @@
 # custom_auth/views.py
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.cache import cache_control, never_cache # pevent caching of the login
 from django.contrib import messages
 from .models import CustomUser
 from .forms import CustomUserForm
-from django.contrib.auth.hashers import make_password
-from django.contrib.auth.forms import PasswordChangeForm
-from django.contrib.auth import update_session_auth_hash
 import re #regex for confirming password special characters
 
 # Create your views here.
+
+# Custom user tests
+def is_admin(user):
+    return user.designation == 'Admin'
+
+def is_supervisor(user):
+    return user.designation == 'Supervisor'
+
+def is_employee(user):
+    return user.designation == 'Employee'
+
+
+#Register view
 def register(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -85,7 +95,7 @@ def user_login(request):
         if user is not None and user.is_authenticated:
             messages.success(request, 'Logged in successfully')  # Display success message
             login(request, user)
-            return redirect(f'soon')
+            return redirect('soon')
         # Handling authentication failure
         else:
             messages.error(request, 'Account does not exist or password is wrong')  # Display error message and redirect the same page
@@ -121,14 +131,19 @@ def update_profile(request):
         return redirect('soon')
 
 # View all registered users view
+#  add a decorator to display an error message if the user is not an admin
 @login_required
 def view_users(request):
-    # return redirect('view_users')
-    users=CustomUser.objects.all()
-    context={
-        'users':users
+    if not (is_admin(request.user) or is_supervisor(request.user)):
+        # Display an error message if the user is not an admin
+        messages.error(request, "You are not allowed to access this page.")
+        return redirect('soon')
+
+    users = CustomUser.objects.all()
+    context = {
+        'users': users
     }
-    return render(request, "view_users.html",context)
+    return render(request, "view_users.html", context)
 
 # Edit user as admin view
 @login_required
@@ -153,13 +168,17 @@ def edit_user(request, user_id):
     return render(request, 'edit_user.html', context)
 
 # delete user view
+@login_required
 def delete_user(request, user_id):
+    if not (is_admin(request.user)):
+        # Display an error message if the user is not an admin
+        messages.error(request, "You are not allowed to perform this action")
+        return redirect('view_users')
     # Get the user and the unique identifier
     user = get_object_or_404(CustomUser, id=user_id)
-    context={'user': user}
     if request.method == 'POST':
         # Delete the user
         user.delete()
         messages.success(request, "User deleted successfully") # Show a success message
         return redirect('view_users') # Redirect to the list of users
-    return render(request, 'delete_user_confirm.html',context ) # Confirm deletion
+    return render(request, 'delete_user_confirm.html') # Confirm deletion

@@ -131,14 +131,14 @@ form input[type="password"] {
     border-radius: 5px;
 }
 
-form button[type="submit"] {
+/* form button[type="submit"] {
     background-color: #007bff;
     color: #fff;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: crosshair;
-}
+} */
 
 /* Style links for registration and forgot password */
 .form-links {

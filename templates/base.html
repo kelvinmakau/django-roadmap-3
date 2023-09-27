@@ -1,4 +1,6 @@
 {% load static %}
+{% load custom_filters %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +10,7 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <script href="{% static 'js/script.js' %}"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <title>Login Reg Playground</title>
@@ -43,7 +46,9 @@
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">{% if user %}{{user.username}} {% else %} Profile {% endif %} <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><a href="{% url 'profile' %}">View Profile</a></li>
+                  {% if user|is_admin or user|is_supervisor %}
                   <li><a href="{% url 'view_users' %}">View Users</a></li>
+                  {% endif %}
                   <li><a href="#">Settings</a></li>
                 </ul>
               </li>
